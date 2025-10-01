@@ -1,0 +1,8 @@
+ex = input().split()
+a = int(ex[0])
+b = int(ex[1])
+result1 = a + b
+result2 = a + b**2
+
+print(result1)
+print(result2)
