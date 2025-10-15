@@ -1,24 +1,23 @@
 import time
 import tracemalloc
 
+
 def main():
-    # Записываем массив чисел
-    arr_input = input("Введите массив чисел через пробел: ")
-    with open('input.txt', 'w') as f1:
-        f1.write(arr_input)
-
-    # Читаем массив из файла
-    with open('input.txt', 'r') as f1:
-        a = list(map(int, f1.readline().split()))
-
-    # Записываем искомое значение
-    v_input = input("Введите искомое значение: ")
-    with open('input.txt', 'w') as f:
-        f.write(v_input)
-
-    # Читаем искомое значение из файла
+    # Читаем данные из файла
     with open('input.txt', 'r') as f:
-        v = int(f.readline())
+        lines = f.readlines()
+
+    # Если файл пустой или нет данных
+    if not lines:
+        with open("output.txt", "w") as f:
+            f.write('-1')
+        return
+
+    # Первая строка - массив чисел
+    a = list(map(int, lines[0].split()))
+
+    # Вторая строка - искомое значение V
+    v = int(lines[1])
 
     # Начинаем отслеживание памяти и времени
     tracemalloc.start()
@@ -35,17 +34,18 @@ def main():
     current_memory, peak_memory = tracemalloc.get_traced_memory()
     tracemalloc.stop()
 
-    # Формирование и вывод результата
-    if not indices:
-        print(-1)
-        with open("output.txt", "w") as f1:
-            f1.write('-1')
-    else:
-        print(f"Найдено элементов: {len(indices)}")
-        print(f"Индексы: {','.join(map(str, indices))}")
-        with open("output.txt", "w") as f1:
-            f1.write(" ".join(map(str, indices)))
+    # Формирование и вывод результата согласно условию
+    with open("output.txt", "w") as f:
+        if not indices:
+            # Если значение не найдено
+            f.write('-1')
+        else:
+            # Если найдено - выводим количество и индексы через запятую
+            result = f"{len(indices)}\n"
+            result += ",".join(map(str, indices))
+            f.write(result)
 
+    # Вывод статистики
     print(f'Время выполнения: {end_time - start_time:.6f} секунд')
     print(f'Пиковое использование памяти: {peak_memory / 1024:.2f} KB')
 
