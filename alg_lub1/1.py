@@ -17,17 +17,6 @@ def insertion_sort(arr):
 
 def main():
     try:
-        # Получаем входные данные
-        print("Введите количество элементов:")
-        n_input = input()
-
-        print("Введите элементы массива через пробел:")
-        arr_input = input()
-
-        # Записываем оба значения в файл
-        with open('input.txt', 'w') as f:
-            f.write(f"{n_input}\n{arr_input}")
-
         # Читаем из файла
         with open('input.txt', 'r') as f:
             lines = f.readlines()
@@ -51,7 +40,7 @@ def main():
         tracemalloc.stop()
 
         # Выводим результаты
-        print("Отсортированный массив:", " ".join(map(str, sorted_arr)))
+        #print("Отсортированный массив:", " ".join(map(str, sorted_arr)))
         print(f'Время выполнения: {end_time - start_time:.6f} секунд')
         print(f'Пиковое использование памяти: {peak_memory / 1024:.2f} KB')
 
